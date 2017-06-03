@@ -1,5 +1,10 @@
 module Text
+  def initialize
+    super
+    puts 'module initialized'
+  end
+  
   def reply_text
-    { type: 'text', text: self }
+    client.reply_message(event['replyToken'], { type: 'text', text: self })
   end
 end

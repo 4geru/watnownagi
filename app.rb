@@ -32,6 +32,7 @@ post '/callback' do
       case event.type
       when Line::Bot::Event::MessageType::Text
         msg = event.message['text']
+        msg.extend(Text(event['replyToken']))
         if event.message['text'] =~ /いなむー/
           msg = ['いなむらくーん', 'いなむーだよ', '俺いなむー！'][Random.rand(3).to_i]
         elsif event.message['text'] =~ /メシ/
@@ -43,8 +44,7 @@ post '/callback' do
                 "previewImageUrl": "https://www.u-coop.net/food/menu/menu_images/#{menu['id']}.jpg"
             })
         end
-        msg.extend(Text)
-        client.reply_message(event['replyToken'], msg.reply_text)
+        msg.reply_text
       when Line::Bot::Event::MessageType::Image, Line::Bot::Event::MessageType::Video
         response = client.get_message_content(event.message['id'])
         tf = Tempfile.open("content")
