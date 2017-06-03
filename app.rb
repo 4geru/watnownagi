@@ -5,7 +5,9 @@ require './src/menu'
 require './lib/module'
 
 get '/' do
-  "Hello world"
+  message = "Hello world"
+  message.extend(Text)
+  message.reply_text.to_s
 end
 
 def client
@@ -41,8 +43,8 @@ post '/callback' do
                 "previewImageUrl": "https://www.u-coop.net/food/menu/menu_images/#{menu['id']}.jpg"
             })
         end
-        message.extend(Text)
-        client.reply_message(event['replyToken'], message.reply_text)
+        msg.extend(Text)
+        client.reply_message(event['replyToken'], msg.reply_text)
       when Line::Bot::Event::MessageType::Image, Line::Bot::Event::MessageType::Video
         response = client.get_message_content(event.message['id'])
         tf = Tempfile.open("content")
