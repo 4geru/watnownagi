@@ -1,15 +1,19 @@
 require 'json'
+require './lib/module'
 
-def get_college(str)
-  colleges = open('../json/college.json') { |io|
-    JSON.load(io)
-  }
+def is_include_college(str)
+  colleges = open('./json/college.json') { |io| JSON.load(io) }
   colleges.each{ |college, value|
-    if str.match(college)
-      print "#{college}, #{value}\n"
-    end
+    return value if str.match(college)
   }
-  true
+  false
 end
 
-#print "get_college('isだよー')"
+def get_college(str)
+  menu = random_menu
+  colleges.each{ |college, value|
+    return "#{college}ですね！ キャンパスは#{canpus}です！" if str.match(college)
+  }
+end
+
+#print "#{get_college('isだよー')}"

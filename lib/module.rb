@@ -3,14 +3,18 @@ module Text
     @token = token
   end
 
-  def reply_text
-    client.reply_message(@token, { type: 'text', text: self })
+  def reply_text(word)
+    client.reply_message(@token, { type: 'text', text: word || self })
   end
 end
 
 module Image
   def set_token(token)
     @token = token
+  end
+
+  def get_token
+    @token
   end
 
   def reply_image(originalContentUrl, previewImageUrl = nil)
