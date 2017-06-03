@@ -4,6 +4,6 @@ module Text
   end
 
   def reply_text
-    client.reply_message(event['replyToken'], { type: 'text', text: self })
+    client.reply_message(@token, { type: 'text', text: self })
   end
 end
