@@ -28,7 +28,7 @@ post '/callback' do
       when Line::Bot::Event::MessageType::Text
         msg = event.message['text']
         if event.message['text'] =~ /いなむー/
-          msg = 'いなむらくーん'
+          msg = ['いなむらくーん', 'いなむーだよ', '俺いなむー！'][Random.rand(3).to_i]
         end
         message = {
           type: 'text',
