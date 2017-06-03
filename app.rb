@@ -2,6 +2,7 @@ require 'sinatra'
 require 'line/bot'
 
 require './src/menu'
+require './src/college'
 require './lib/module'
 
 get '/' do
@@ -43,7 +44,7 @@ post '/callback' do
           url = "https://www.u-coop.net/food/menu/menu_images/#{menu['id']}.jpg"
           token.reply_image(url)
         elsif is_include_college(event.message['text'])
-          token.reply_text(event.message['text'])
+          token.reply_text(get_college(event.message['text']))
         end
         token.reply_text
       when Line::Bot::Event::MessageType::Image, Line::Bot::Event::MessageType::Video

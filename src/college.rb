@@ -10,9 +10,10 @@ def is_include_college(str)
 end
 
 def get_college(str)
-  menu = random_menu
+  colleges = open('./json/college.json') { |io| JSON.load(io) }
   colleges.each{ |college, value|
-    return "#{college}ですね！ キャンパスは#{canpus}です！" if str.match(college)
+    return "#{value['college']}ですね！ キャンパスは#{value['canpus']}です！" 
+      if str.match(college)
   }
 end
 
