@@ -32,7 +32,8 @@ post '/callback' do
       case event.type
       when Line::Bot::Event::MessageType::Text
         msg = event.message['text']
-        msg.extend(Text(event['replyToken']))
+        msg.extend(Text)
+        msg.set_token(event['replyToken'])
         if event.message['text'] =~ /いなむー/
           msg = ['いなむらくーん', 'いなむーだよ', '俺いなむー！'][Random.rand(3).to_i]
         elsif event.message['text'] =~ /メシ/
