@@ -12,8 +12,7 @@ end
 def get_college(str)
   colleges = open('./json/college.json') { |io| JSON.load(io) }
   colleges.each{ |college, value|
-    return "#{value['college']}ですね！ キャンパスは#{value['canpus']}です！" 
-      if str.match(college)
+    return "#{value['college']}ですね！ キャンパスは#{value['canpus']}です！" if str.match(college)
   }
 end
 
