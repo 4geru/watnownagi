@@ -5,7 +5,6 @@ require './src/menu'
 
 get '/' do
   "Hello world"
-  p reply_menu.to_s
 end
 
 def client
@@ -33,7 +32,13 @@ post '/callback' do
         if event.message['text'] =~ /いなむー/
           msg = ['いなむらくーん', 'いなむーだよ', '俺いなむー！'][Random.rand(3).to_i]
         elsif event.message['text'] =~ /メシ/
-          client.reply_message(event['replyToken'], reply_menu)
+          menu = random_menu
+          client.reply_message(event['replyToken'], 
+            {
+                "type": "image",
+                "originalContentUrl": "https://www.u-coop.net/food/menu/menu_images/#{menu['id']}.jpg",
+                "previewImageUrl": "https://www.u-coop.net/food/menu/menu_images/#{menu['id']}.jpg"
+            })
         end
         message = {
           type: 'text',
