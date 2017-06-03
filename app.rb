@@ -31,18 +31,19 @@ post '/callback' do
     when Line::Bot::Event::Message
       case event.type
       when Line::Bot::Event::MessageType::Text
-        msg = event.message['text']
-        msg.extend(Text)
-        msg.set_token(event['replyToken'])
+        token = event.message['text']
+        token.extend(Text)
+        token.set_token(event['replyToken'])
         if event.message['text'] =~ /いなむー/
-          msg = ['いなむらくーん', 'いなむーだよ', '俺いなむー！'][Random.rand(3).to_i]
+          word = ['いなむらくーん', 'いなむーだよ', '俺いなむー！'][Random.rand(3).to_i]
+          token.reply_text(word)
         elsif event.message['text'] =~ /メシ/
           menu = random_menu
-          msg.extend(Image)
+          token.extend(Image) # 画像データに変換
           url = "https://www.u-coop.net/food/menu/menu_images/#{menu['id']}.jpg"
-          msg.reply_image(url)
+          token.reply_image(url)
         end
-        msg.reply_text
+        token.reply_text
       when Line::Bot::Event::MessageType::Image, Line::Bot::Event::MessageType::Video
         response = client.get_message_content(event.message['id'])
         tf = Tempfile.open("content")
