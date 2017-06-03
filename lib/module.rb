@@ -3,7 +3,7 @@ module Text
     @token = token
   end
 
-  def reply_text(word)
+  def reply_text(word = nil)
     client.reply_message(@token, { type: 'text', text: word || self })
   end
 end
