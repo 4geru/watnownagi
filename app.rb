@@ -33,7 +33,7 @@ post '/callback' do
         if event.message['text'] =~ /いなむー/
           msg = ['いなむらくーん', 'いなむーだよ', '俺いなむー！'][Random.rand(3).to_i]
         elsif event.message['text'] =~ /メシ/
-          reply_menu
+          client.reply_message(event['replyToken'], reply_menu)
         end
         message = {
           type: 'text',
