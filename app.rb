@@ -38,12 +38,9 @@ post '/callback' do
           msg = ['いなむらくーん', 'いなむーだよ', '俺いなむー！'][Random.rand(3).to_i]
         elsif event.message['text'] =~ /メシ/
           menu = random_menu
-          client.reply_message(event['replyToken'], 
-            {
-                "type": "image",
-                "originalContentUrl": "https://www.u-coop.net/food/menu/menu_images/#{menu['id']}.jpg",
-                "previewImageUrl": "https://www.u-coop.net/food/menu/menu_images/#{menu['id']}.jpg"
-            })
+          msg.extend(Image)
+          url = "https://www.u-coop.net/food/menu/menu_images/#{menu['id']}.jpg"
+          msg.reply_image(url)
         end
         msg.reply_text
       when Line::Bot::Event::MessageType::Image, Line::Bot::Event::MessageType::Video
