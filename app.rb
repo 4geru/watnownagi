@@ -1,8 +1,11 @@
 require 'sinatra'
 require 'line/bot'
 
+require './src/menu'
+
 get '/' do
   "Hello world"
+  p reply_menu.to_s
 end
 
 def client
@@ -29,6 +32,8 @@ post '/callback' do
         msg = event.message['text']
         if event.message['text'] =~ /いなむー/
           msg = ['いなむらくーん', 'いなむーだよ', '俺いなむー！'][Random.rand(3).to_i]
+        elsif event.message['text'] =~ /メシ/
+          reply_menu
         end
         message = {
           type: 'text',
