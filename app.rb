@@ -10,7 +10,6 @@ require 'open-uri'
 get '/' do
   p get_campus_map('BKCマップ')
   img = get_campus_map('BKCマップ')
-  open(img)
 end
 
 def client
