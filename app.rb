@@ -47,7 +47,7 @@ post '/callback' do
           token.reply_image(url)
         elsif event.message['text'] =~ /マップ/ or event.message['text'] =~ /地図/ or event.message['text'] =~ /map/
           campus_image_url = get_campus_map(token)
-          token.reply_image(open(campus_image_url))
+          token.reply_image(campus_image_url)
         elsif is_include_college(token)
           token.reply_text(get_college(get_campus_map))
         end
