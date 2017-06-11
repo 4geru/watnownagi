@@ -45,8 +45,8 @@ post '/callback' do
           url = "https://www.u-coop.net/food/menu/menu_images/#{menu['id']}.jpg"
           token.reply_image(url)
         elsif event.message['text'] =~ /マップ/ or event.message['text'] =~ /地図/ or event.message['text'] =~ /map/
-          campus_image_url = get_campus_map(token)
-          token.reply_image(campus_image_url)
+          token.extend(Image) # 画像データに変換
+          token.reply_image(get_campus_map(token))
         elsif is_include_college(token)
           token.reply_text(get_college(get_campus_map))
         end
