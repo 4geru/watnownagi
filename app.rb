@@ -5,11 +5,12 @@ require './src/menu'
 require './src/college'
 require './src/campus'
 require './lib/module'
+require 'open-uri'
 
 get '/' do
-  message = "Hello world"
-  message.extend(Text)
-  message.reply_text.to_s
+  p get_campus_map('BKCマップ')
+  img = get_campus_map('BKCマップ')
+  open(img)
 end
 
 def client
@@ -46,7 +47,7 @@ post '/callback' do
           token.reply_image(url)
         elsif event.message['text'] =~ /マップ/ or event.message['text'] =~ /地図/ or event.message['text'] =~ /map/
           campus_image_url = get_campus_map(token)
-          token.reply_image(campus_image_url)
+          token.reply_image(open(campus_image_url))
         elsif is_include_college(token)
           token.reply_text(get_college(get_campus_map))
         end
