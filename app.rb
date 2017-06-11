@@ -3,6 +3,7 @@ require 'line/bot'
 
 require './src/menu'
 require './src/college'
+require './src/campus'
 require './lib/module'
 
 get '/' do
@@ -43,8 +44,11 @@ post '/callback' do
           token.extend(Image) # 画像データに変換
           url = "https://www.u-coop.net/food/menu/menu_images/#{menu['id']}.jpg"
           token.reply_image(url)
-        elsif is_include_college(event.message['text'])
-          token.reply_text(get_college(event.message['text']))
+        elsif event.message['text'] =~ /マップ/ or event.message['text'] =~ /地図/ or event.message['text'] =~ /map/
+          campus_image_url = get_campus_map(token)
+          token.reply_image(campus_image_url)
+        elsif is_include_college(token)
+          token.reply_text(get_college(get_campus_map))
         end
         token.reply_text
       when Line::Bot::Event::MessageType::Image, Line::Bot::Event::MessageType::Video
